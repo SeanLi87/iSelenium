@@ -16,7 +16,8 @@ public abstract class WebUIBase {
     private String propFileName = "iselenium.properties";
 
     protected String testcaseName = "";
-    protected String curBrowser = "firefox"; //默认浏览器是firefox
+    //默认浏览器是firefox,可以通过设置程序运行时的环境变量参数currentBrowser进行设置其他
+    protected String curBrowser = "firefox";
     protected WebDriver driver;
     protected WebDriver.Navigation navigation;
     protected String firefoxPath = "";
@@ -32,7 +33,7 @@ public abstract class WebUIBase {
 
         //获取浏览器driver路径
         logger.info("Load webdriver path");
-        firefoxPath = prop.getProperty("FIREFOX_PATH");
+//        firefoxPath = prop.getProperty("FIREFOX_PATH");
         chromePath = prop.getProperty("CHROME_PATH");
         logger.info("firefoxPath = " + firefoxPath);
         logger.info("chromePath = " + chromePath);
@@ -84,7 +85,8 @@ public abstract class WebUIBase {
     private Properties loadFromEnvProperties(String propFileName) {
         Properties prop = null;
 
-        String path = System.getProperty("user.home");
+        String path = System.getProperty("user.home");//获取程序运行环境上用户主目录路径
+        logger.info("user.home is " + path);
 
         //读入envProperties属性文件
         try {
@@ -104,6 +106,7 @@ public abstract class WebUIBase {
 
     private void setCurBrowser() {
         String value = System.getenv("currentBrowser");
+        logger.info("currentBrowser is " + value);
         if (value == null || value.equalsIgnoreCase("")) {
             return;
         }
